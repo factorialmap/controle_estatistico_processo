@@ -1,0 +1,100 @@
+---
+title: "Vignette gráficos de controle"
+author: "Marcelo C Anjos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette gráficos de controle}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Ideia geral desse documento
+
+- Compreender o uso prático dos gráfcos de controle 
+- Praticar construção de documento reproduzível e colaborativo
+- Poder usar linguagem simles, a ideia é aprender e não apresentação acadêmica.
+
+#Gráficos de Controle Estatístico
+
+
+## O que são gráficos de controle
+
+Gráfico de linha que mostra uma medida (eixo y) ao longo do tempo (eixo x). A linha central do gráfico representa a média ponderada e as duas linhas superiores e inferiores representam os limites de controle estatístico.
+
+O que fica dentro dessas linhas chamamos de variação de causa comum inerente ao processo, o que está fora chamamos de causas especiais.
+
+Walther A. Shewhart descreveu dois tipos de variação. As de causas comuns e variação de causas especiais.
+
+
+- **Causas comuns** - Estão presente no sistema, variação aleatória (e.g. tempo médio para fazer meu arroz no dia a dia)
+- **Causas especiais** - Não estão presentes no sistema, sinal não aleatório(e.g tempo pra fazer meu arroz no dia que acabou a energia por 40 minutos)
+
+
+## Objetivo 
+
+Colocaremos os objetivos
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+
+## De onde vem a demanda ?
+
+Qual a necessidade hoje de se usar gráficos de controle do ponto de vista prático
+
+Se quiser da pra plotar um grafico
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+
+## Como fazer
+
+Aqui da pra colocar um exemplo de cada explicando o uso prático de cada um
+
+Exemplo
+```{r, x-barra, message=FALSE,fig.width= 7, fig.height=5}
+####Usando a base de dados pistonrings disponivel no pacote qcc
+library(qcc)
+library(tidyverse)
+data("pistonrings")
+
+#Ajustando a tabela para construcao do grafico XR
+diametro <- qcc.groups(pistonrings$diameter, pistonrings$sample)
+
+#Gerando gr?fico com dados da Fase1 com 25 primeiras e acrescentando dados da Fase 2 com 15 amostras 
+grafico_1 <- qcc(diametro[1:25,], type = "xbar", newdata = diametro[26:40,])
+
+```
+
+
+
+Da pra escrever algumas expressões matemáticas e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], e tabelas, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 5))
+```
+
+Para fazer uma citação `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
+
+## Pra onde vai quem é o cliente
+
+Aqui a ideia é colocar quem são os beneficiados ou usa 
+
+
+## Qual o resultado
+
+Aqui a ideia é colocar quais os benefícios para a sociedade, país, empresa, grupo ou pessoa.

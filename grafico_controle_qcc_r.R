@@ -2,22 +2,20 @@
 library(qcc)
 
 ###################
-# Fabrica de anéis de pistão pra motor de carros em processo de forjamento.
-# Fase 1: 25 amostras com 5 unidades cada sao coletadas para medir o diâmetro interno dos anéis 
-# Fase 2: 15 amostras com 5 unidades cada sao coletadas para medir o diâmetro interno dos anéis 
+# Fabrica de an?is de pist?o pra motor de carros em processo de forjamento.
+# Fase 1: 25 amostras com 5 unidades cada sao coletadas para medir o di?metro interno dos an?is 
+# Fase 2: 15 amostras com 5 unidades cada sao coletadas para medir o di?metro interno dos an?is 
 # O conjunto de dados tem 3 variaveis diameter (continua), sample(Nominal ou discreta), e trial (binaria)
 
 ####Usando a base de dados pistonrings disponivel no pacote qcc
+library(qcc)
+library(tidyverse)
 data("pistonrings")
-attach(pistonrings)
-?pistonrings
-
-boxplot(diameter ~ trial)
 
 #Ajustando a tabela para construcao do grafico XR
-diametro <- qcc.groups(diameter, sample)
+diametro <- qcc.groups(pistonrings$diameter, pistonrings$sample)
 
-#Gerando gráfico com dados da Fase1 com 25 primeiras e acrescentando dados da Fase 2 com 15 amostras 
+#Gerando gr?fico com dados da Fase1 com 25 primeiras e acrescentando dados da Fase 2 com 15 amostras 
 grafico_1 <- qcc(diametro[1:25,], type = "xbar", newdata = diametro[26:40,])
 
 ####### Extras para quem tiver interesse no assunto
@@ -65,13 +63,13 @@ detach(pistonrings)
 library(qcc)
 
 #Fabrica de caixa longa vida de 125 ml para Suco de laranja
-#São formadas em uma máquina que gira o papelao e insere um monte de camadas dentre elas uma de metal
+#S?o formadas em uma m?quina que gira o papelao e insere um monte de camadas dentre elas uma de metal
 #Fazemos inspecao pra observar se ao preenchida poderia vazar na costura lateral ou na junta inferior.
-#Se isso ocorrer, uma caixa é considerada não conforme. 
-#Coletou se 30 amostras de 50 cxs cada a cada meia hora e durante três turnos operando continuamente
-#Na amostra 15, um novo lote de papelão foi colocado em produção.
-#Na amostra 23  um operador inexperiente foi temporariamente convocado pra operar a máquina. 
-#Depois de coletar as 30, foi feito um ajuste na máquina e fizemos mais 24 amostras do processo.
+#Se isso ocorrer, uma caixa ? considerada n?o conforme. 
+#Coletou se 30 amostras de 50 cxs cada a cada meia hora e durante tr?s turnos operando continuamente
+#Na amostra 15, um novo lote de papel?o foi colocado em produ??o.
+#Na amostra 23  um operador inexperiente foi temporariamente convocado pra operar a m?quina. 
+#Depois de coletar as 30, foi feito um ajuste na m?quina e fizemos mais 24 amostras do processo.
 #Variaveis Sample (Sequencia), D (qtd defeitos), sample_size (tamanho da amostra), trial (TrueFalse)
 
 
@@ -84,7 +82,7 @@ attach(orangejuice)
 
 boxplot(D ~ trial)
 
-#Constroi o gráfico P onde Trial = TRUE ou seja, as primeiras 30 amostras
+#Constroi o gr?fico P onde Trial = TRUE ou seja, as primeiras 30 amostras
 qcc(D[trial], sizes=size[trial], type="p")
 
 
@@ -133,11 +131,11 @@ detach(orangejuice2)
 #Grafico C por numero de defeitos numa peca
 
 #Fabrica de placas de circuito impresso 
-#Coletamos 26 amostras sucessivas de 100 placas de circuito impresso e medimos o número de não conformidades em cada placa
-#As amostras 6 e 20 estão fora dos limites de controle
-#A 6 foi examinada por um novo inspetor e ele não reconheceu vários tipos NC que poderiam estar presentes.
-#A 20 foi resultado de um problema de controle de temperatura na máquina de solda por onda, que foi posteriormente reparada. 
-#As últimas 20 amostras são coletadas em unidades de inspeção (cada uma formada por 100 placas). 
+#Coletamos 26 amostras sucessivas de 100 placas de circuito impresso e medimos o n?mero de n?o conformidades em cada placa
+#As amostras 6 e 20 est?o fora dos limites de controle
+#A 6 foi examinada por um novo inspetor e ele n?o reconheceu v?rios tipos NC que poderiam estar presentes.
+#A 20 foi resultado de um problema de controle de temperatura na m?quina de solda por onda, que foi posteriormente reparada. 
+#As ?ltimas 20 amostras s?o coletadas em unidades de inspe??o (cada uma formada por 100 placas). 
 
 
 data(circuit)
@@ -199,7 +197,7 @@ c<-qcc(x, type="xbar.one", std.dev = "SD")
 
 plot(c)
 
-#Pontos aleatórios com média em 10 e seguindo a distribuição normal
+#Pontos aleat?rios com m?dia em 10 e seguindo a distribui??o normal
 parafuso_a <- rep(10, 50) + rnorm(50, mean=0, sd=0.5)
 grafico_1  <- qcc(parafuso_a, 
                   type="xbar.one", 
@@ -208,8 +206,8 @@ grafico_1  <- qcc(parafuso_a,
                   title="Lote 1",
                   xlab="Parafusos produzidos")
 
-# Primeiros 90 pontos aleatórios com média em 10 e seguindo a distribuição normal
-# Ultimos   10 pontos aleatórios com média em 11 e seguindo a distribuição normal
+# Primeiros 90 pontos aleat?rios com m?dia em 10 e seguindo a distribui??o normal
+# Ultimos   10 pontos aleat?rios com m?dia em 11 e seguindo a distribui??o normal
 parafuso_b <- c(rep(10, 40), rep(11, 10)) + rnorm(40, mean=0, sd=0.5)
 grafico_2  <- qcc(parafuso_b, 
                   type="xbar.one", 
@@ -218,7 +216,7 @@ grafico_2  <- qcc(parafuso_b,
                   title="Lote 2",
                   xlab="Parafusos produzidos")
 
-#Agora usando conjunto de validação e testes
+#Agora usando conjunto de valida??o e testes
 parafuso_c <- rep(10, 50) + rnorm(50, mean=0, sd=0.5)
 grafico_3  <- qcc(parafuso_c, 
                   newdata=rep(9, 20) + rnorm(20, mean=0, sd=0.2),
